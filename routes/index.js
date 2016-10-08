@@ -51,7 +51,11 @@ router.get('/', (req, res, next) => {
     "http://logs.tf/json/1527069",
     "http://logs.tf/json/1532687",
     "http://logs.tf/json/1537423",
-    "http://logs.tf/json/1537459"
+    "http://logs.tf/json/1537459",
+    "http://logs.tf/json/1538056",
+    "http://logs.tf/json/1538087",
+    "http://logs.tf/json/1538945",
+    "http://logs.tf/json/1538979"
   ];
 
   // extract the JSON strings from all the logs.tf links
