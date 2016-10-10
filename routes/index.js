@@ -24,7 +24,7 @@ function tryParseJSON(jsonString) {
       return o;
     }
   } catch (e) {
-    console.log('ERROR: Couldn\'t parse the following JSON: ' + e);
+    console.log('ERROR: ' + e);
     return false;
   }
 
@@ -47,12 +47,15 @@ router.get('/', (req, res, next) => {
       var host = requestUrl.host,
           path = requestUrl.path;
 
+      // url validation
       if (requestUrl.host     === 'logs.tf' || 'www.logs.tf' &&
           requestUrl.protocol ===  null     || 'http:'       &&
           requestUrl.path.match(/^\d{5,}$/g)) {
 
+        // makes the actual HTTP request
         request('http://' + host + '/json' + path, (error, response, body) => {
 
+          // checks for errors and invalid data, just in case
           if (error) {
             reject(error);
           }
@@ -60,6 +63,8 @@ router.get('/', (req, res, next) => {
             reject(requestUrl.href + ' doesn\'t seem to be a valid log. \n');
           }
           else {
+            /// perhaps parse the JSON data and scrape the map and date here
+            /// and send the complete javascript object to Promise.all()?
             resolve(body);
           }
         });
@@ -77,6 +82,10 @@ router.get('/', (req, res, next) => {
 
       // convert all the JSON strings to javascript objects
       logsArray = _.map(logsArray, log => tryParseJSON(log));
+      /// make the http request to scrape the date and map of the log around here
+      /// perhaps inside the lodash map function. 
+      /// problem with that is that the id in log.tf/<id> is lost
+      
 
       var players = {};
 
