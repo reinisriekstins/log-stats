@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "body-parser": "~1.15.1",
+    "cheerio": "^0.22.0",
     "cookie-parser": "~1.4.3",
     "debug": "~2.2.0",
     "ejs": "~2.4.1",
@@ -15,7 +16,8 @@
     "morgan": "~1.7.0",
     "node-sass-middleware": "0.8.0",
     "request": "^2.75.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "nodemon": "^1.10.2"
