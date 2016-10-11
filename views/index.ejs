@@ -18,13 +18,13 @@
         var arr = [];
         for (var player in players) {
           arr.push({
-            name: players[player].name, 
-            avg_dpm: players[player].dmg*60/players[player].time_played,
-            avg_kills: players[player].kills/players[player].matches_played,
-            avd_kpd: players[player].kpd,
-            matches: players[player].matches_played,
+            name:        players[player].name, 
+            avg_dpm:     players[player].dmg*60/players[player].time_played,
+            avg_kills:   players[player].kills/players[player].matches_played,
+            avd_kpd:     players[player].kpd,
+            matches:     players[player].matches_played,
             time_played: players[player].time_played,
-            dmg: players[player].dmg
+            dmg:         players[player].dmg
           });
         }
         arr.sort((a, b) => {
@@ -32,7 +32,6 @@
           else if (a.matches < b.matches) return 1;
           else return 0;
         });
-        //document.write(arr);
         console.log(arr);
       }
     </script>
