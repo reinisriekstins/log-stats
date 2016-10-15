@@ -40,5 +40,13 @@ module.exports = [
   "http://logs.tf/1527069",
   "http://logs.tf/1532687",
   "http://logs.tf/1537423",
-  "http://logs.tf/1537459"
+  "http://logs.tf/1537459",
+  "http://logs.tf/1538945",
+  "http://logs.tf/1538979",
+  "http://logs.tf/1541431",
+  "http://logs.tf/1541448",
+  "http://logs.tf/1541486",
+  "http://logs.tf/1543411",
+  "http://logs.tf/1543432",
+  "http://logs.tf/1543458"
 ];
