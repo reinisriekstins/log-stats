@@ -1,8 +1,7 @@
 'use strict';
 
-var express = require('express');
-var router = express.Router();
-
+const express = require('express');
+const router  = express.Router();
 const request = require('request');
 const _       = require('lodash');
 const cheerio = require('cheerio');
@@ -35,32 +34,30 @@ function tryParseJSON(jsonString) {
 router.get('/', (req, res, next) => {
 
   // extract the JSON strings from all the logs.tf links
-  var responseArray = _.map(requestArray, eachRequest => {
-
-    var eachResponse = new Promise((resolve, reject) => {
+  var responseArray = _.map(requestArray, (eachRequest) => {
+    return new Promise((resolve, reject) => {
 
       // check if the link has "http://" in it's beginning, if it doesn't,
       // add it, because otherwise the url parser can't parse it properly
-      !/^http:\/\//gi.test(eachRequest) ? eachRequest = 'http://' + eachRequest : '';
-      
-      var requestUrl = url.parse(eachRequest);
-      var host = requestUrl.host,
-          path = requestUrl.path;
+      if ( !eachRequest.startsWith('http://') ) eachRequest = 'http://' + eachRequest;
+
+      let requestUrl = url.parse(eachRequest);
+      let urlHost = requestUrl.host,
+          urlPath = requestUrl.path;
 
       // url validation
-      if (( requestUrl.host     === 'logs.tf' || requestUrl.host === 'www.logs.tf' ) &&
-          ( requestUrl.protocol ===  null     || requestUrl.protocol ===   'http:' ) &&
-            requestUrl.path.match(/^\d{5,}$/g)) {
+      if (( urlHost === 'logs.tf' || urlHost === 'www.logs.tf' ) &&
+            urlPath.match(/^\/\d{5,}$/g) ) {
 
         // makes the actual HTTP request
-        request('http://' + host + '/json' + path, (error, response, body) => {
+        request('http://logs.tf/json' + urlPath, (error, response, body) => {
 
-          // checks for errors and invalid data, just in case
+          // checks for errors and invalid data
           if (error) {
             reject(error);
           }
           else if ( !tryParseJSON(body) ) {
-            reject(requestUrl.href + ' doesn\'t seem to be a valid log. \n');
+            reject('http://logs.tf/json${urlPath} doesn\'t seem to be a JSON.');
           }
           else {
             /// perhaps parse the JSON data and scrape the map and date here
@@ -69,10 +66,8 @@ router.get('/', (req, res, next) => {
           }
         });
       }
-      else reject(requestUrl.host + ' didn\'t validate');
+      else reject('http://logs.tf/json${urlPath} didn\'t validate.');
     });
-
-    return eachResponse;
   });
 
   // when all log JSON strings have been extracted
@@ -83,9 +78,9 @@ router.get('/', (req, res, next) => {
       // convert all the JSON strings to javascript objects
       logsArray = _.map(logsArray, log => tryParseJSON(log));
       /// make the http request to scrape the date and map of the log around here
-      /// perhaps inside the lodash map function. 
+      /// perhaps inside the lodash map function.
       /// problem with that is that the id in log.tf/<id> is lost
-      
+
 
       var players = {};
 
