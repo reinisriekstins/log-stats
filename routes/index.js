@@ -48,9 +48,9 @@ router.get('/', (req, res, next) => {
           path = requestUrl.path;
 
       // url validation
-      if (requestUrl.host     === 'logs.tf' || 'www.logs.tf' &&
-          requestUrl.protocol ===  null     || 'http:'       &&
-          requestUrl.path.match(/^\d{5,}$/g)) {
+      if (( requestUrl.host     === 'logs.tf' || requestUrl.host === 'www.logs.tf' ) &&
+          ( requestUrl.protocol ===  null     || requestUrl.protocol ===   'http:' ) &&
+            requestUrl.path.match(/^\d{5,}$/g)) {
 
         // makes the actual HTTP request
         request('http://' + host + '/json' + path, (error, response, body) => {
