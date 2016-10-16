@@ -2,7 +2,7 @@
 
 const express = require('express');
 const router  = express.Router();
-const request = require('request');
+const request = require('request'); /// maybe use axios?
 const _       = require('lodash');
 const cheerio = require('cheerio');
 const url     = require('url');
@@ -80,7 +80,7 @@ function requestLogHtml(urlPath) {
         if (time === undefined) {
           if ( $('.log-section > h3').html() === 'Something went wrong' ) {
             // recursively call requestLogHtml every 50 ms
-            /////// careful about infinite looop
+            /////// careful about infinite looop?
             setTimeout(() => {
               requestLogHtml(urlPath)
                 .then(obj => resolve(obj));
@@ -88,7 +88,7 @@ function requestLogHtml(urlPath) {
           }
           else reject(`Couldn't find the date field in http://logs.tf${urlPath}`);
         }
-        else resolve({ time: time, map: map });
+        else resolve({ id: urlPath, time: time, map: map });
       }
     });
   });
@@ -135,8 +135,9 @@ router.get('/', (req, res, next) => {
   Promise
     .all(responseArray)
     .then(logsArr => {
-      res.render('index', {logsArr: JSON.stringify(logsArr)});
-    }, error => console.error(error));
+      res.render('index', { logsArr: JSON.stringify(logsArr) });
+    })
+    .catch(error => console.error(error));
 });
 
 module.exports = router;
