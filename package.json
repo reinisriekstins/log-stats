@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "build": "./node_modules/.bin/webpack",
+    "debug": "node-debug -d 5858 -p 7777",
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "babel-polyfill": "^6.16.0",
     "body-parser": "~1.15.1",
     "cheerio": "^0.22.0",
     "cookie-parser": "~1.4.3",
@@ -22,7 +25,11 @@
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.16.0",
+    "css-loader": "^0.25.0",
+    "node-sass": "^3.10.1",
     "nodemon": "^1.10.2",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.2"
   }
 }

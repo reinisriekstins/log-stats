@@ -1,3 +1,6 @@
+'use strict';
+require('../css/style.scss');
+
 const _  = require('lodash');
 var data = require('./data');
 
