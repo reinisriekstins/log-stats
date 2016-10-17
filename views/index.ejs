@@ -2,33 +2,12 @@
 <html>
   <head>
     <title>Espresso!</title>
-    <link rel='stylesheet' href='/css/style.css' />
-    <script tpye="text/javascript" src="/js/lodash.js"></script>
-    <script tpye="text/javascript" src="/js/data.js"></script>
+    <link rel='stylesheet' href='/css/style.css'/>
   </head>
   <body>
     <h1>Espresso!</h1>
     <p>Welcome to Espresso!</p>
-    <div class="content"><div>
-    <script type="text/javascript">
-      window.onload = function () {
-        var logsArr = data;
-        logsArr
-          .sort(function(a, b) {
-            if (a.data.time > b.data.time) return 1;
-            else if (a.data.time < b.data.time) return -1;
-            else return 0;
-          });
-          
-        console.log(logsArr);
-
-        var x = {};
-        logsArr.forEach(function (log) {
-          if (x[log.data.map] === undefined) x[log.data.map] = 1;
-          else x[log.data.map]++;
-        });
-        console.log(x);
-      }
-    </script>
+    <!--div class="content"><div-->
+    <script type="text/javascript" src="/js/bundle.js"></script>
   </body>
 </html>
