@@ -10,7 +10,7 @@
     "webpack": "./node_modules/.bin/webpack"
   },
   "scripts": {
-    "build": "/node_modules/.bin/webpack",
+    "build": "./node_modules/.bin/webpack",
     "watch": "onchange \"./src/**/*\" -i -- npm run build",
     "nodemon": "nodemon ./bin/www",
     "start": "node_modules/.bin/parallelshell \"npm run watch\" \"node ./bin/www \""
@@ -21,7 +21,6 @@
     "c3": "^0.4.11",
     "cheerio": "^0.22.0",
     "cookie-parser": "~1.4.3",
-    "d3": "^4.2.8",
     "debug": "~2.2.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",

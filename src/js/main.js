@@ -6,7 +6,6 @@ window.onload = () => {
   'use strict';
 
   const _  = require('lodash');
-  const d3 = require('d3'); // ask about these not 100% necessary dependencies in stack overflow
   const c3 = require('c3');
 
   const logsArr = require('./data');
