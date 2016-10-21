@@ -56,15 +56,13 @@ const requestArray = [
   "http://logs.tf/1541486",
   "http://logs.tf/1543411",
   "http://logs.tf/1543432",
-  "http://logs.tf/1543458"
+  "http://logs.tf/1543458",
+  "http://logs.tf/1546881",
+  "http://logs.tf/1546865"
 ];
-
-/// NOTE: I BELIEVE THAT ALL OF THE OPERATIONS HERE CAN BE DONE IN THE BROWSER
 
 // not sure what's happenning in this copy pasta function, but it works 100%
 function tryParseJSON(jsonString) {
-  var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
   try {
     var o = JSON.parse(jsonString);
 
@@ -75,12 +73,9 @@ function tryParseJSON(jsonString) {
     if (o && (typeof o === 'undefined' ? 'undefined' : _typeof(o)) === "object") {
       return o;
     }
-  } catch (e) {
-    console.log('ERROR: ' + e);
-    return false;
-  }
+  } catch (e) {}
 
-  return jsonString;
+  return false;
 }
 
 function requestLogJson(urlPath) {

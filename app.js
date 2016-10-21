@@ -26,7 +26,7 @@ app.use(cookieParser());
   indentedSyntax: true,
   sourceMap: true
 }));*/
-app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.use('/', routes);
 app.use('/users', users);

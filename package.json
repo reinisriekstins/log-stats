@@ -4,14 +4,17 @@
   "private": true,
   "scripts": {
     "build": "./node_modules/.bin/webpack",
-    "debug": "node-debug -d 5858 -p 7777",
-    "start": "nodemon ./bin/www"
+    "watch": "onchange \"./src/**/*\" -i -- npm run build",
+    "nodemon": "nodemon ./bin/www",
+    "start": "node_modules/.bin/parallelshell \"npm run watch\" \"node ./bin/www \""
   },
   "dependencies": {
     "babel-polyfill": "^6.16.0",
     "body-parser": "~1.15.1",
+    "c3": "^0.4.11",
     "cheerio": "^0.22.0",
     "cookie-parser": "~1.4.3",
+    "d3": "^4.2.8",
     "debug": "~2.2.0",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
@@ -28,6 +31,8 @@
     "css-loader": "^0.25.0",
     "node-sass": "^3.10.1",
     "nodemon": "^1.10.2",
+    "onchange": "^3.0.2",
+    "parallelshell": "^2.0.0",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.2"

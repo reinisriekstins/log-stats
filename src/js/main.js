@@ -1,18 +1,17 @@
 'use strict';
 require('../css/style.scss');
 
-const _  = require('lodash');
-var data = require('./data');
-
 window.onload = () => {
-  var logsArr = data;
+  'use strict';
 
-  logsArr
-    .sort((a, b) => {
-      if (a.data.time > b.data.time) return 1;
-      else if (a.data.time < b.data.time) return -1;
-      else return 0;
-    });
+  const _  = require('lodash');
+  const logsArr = require('./data');
+
+  logsArr.sort((a, b) => {
+    if (a.data.time > b.data.time) return 1;
+    else if (a.data.time < b.data.time) return -1;
+    else return 0;
+  });
 
   console.log(logsArr);
 
@@ -22,4 +21,5 @@ window.onload = () => {
     else x[log.data.map]++;
   });
   console.log(x);
+  console.log('wow');
 }
