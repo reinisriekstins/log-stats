@@ -61,6 +61,8 @@ const requestArray = [
   "http://logs.tf/1546865"
 ];
 
+/// NOTE: ALL OF THIS CAN BE DONE ON THE CLIENT, BUT THE DATA VALIDATION SHOULD PROBABLY STAY ON THE SERVER
+
 // not sure what's happenning in this copy pasta function, but it works 100%
 function tryParseJSON(jsonString) {
   try {
