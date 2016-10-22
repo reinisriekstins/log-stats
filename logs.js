@@ -169,7 +169,7 @@ function logs(callback) {
               // because logs.tf omits them
               promiseArr[0].time += '000';
 
-              resolve({ data: promiseArr[0], log: promiseArr[1] });
+              resolve({ meta: promiseArr[0], log: promiseArr[1] });
             });
 
         }
