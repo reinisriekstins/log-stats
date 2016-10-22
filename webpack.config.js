@@ -1,5 +1,10 @@
+const webpack = require('webpack');
+
 module.exports = {
-	entry: ['babel-polyfill', './src/js/main'],
+	entry: {
+		app: './src/js/main',
+		vendor: ['babel-polyfill', 'lodash', 'c3']
+	},
 	output: {
 		path: 'dist/js',
 		filename: 'bundle.js'
@@ -23,5 +28,8 @@ module.exports = {
 				loader: 'style-loader!css-loader'
 			}
 		]
-	}
+	},
+	plugins: [
+    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+  ]
 };
