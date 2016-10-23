@@ -1,9 +1,9 @@
-const webpack = require('webpack');
+//const webpack = require('webpack');
 
 module.exports = {
 	entry: {
 		app: './src/js/main',
-		vendor: ['babel-polyfill', 'lodash', 'c3']
+		//vendor: ['babel-polyfill', 'lodash', 'c3', 'jquery']
 	},
 	output: {
 		path: 'dist/js',
@@ -16,7 +16,8 @@ module.exports = {
 				exclude: /(node_modules)/,
 				loader: 'babel',
 				query: {
-					presets: ['es2015'/*, 'react'*/]
+					presets: ['es2015'/*, 'react'*/],
+					cacheDirectory: true
 				}
 			},
 			{
@@ -29,7 +30,7 @@ module.exports = {
 			}
 		]
 	},
-	plugins: [
-    new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
-  ]
+	//plugins: [
+  //  new webpack.optimize.CommonsChunkPlugin(/* chunkName= */"vendor", /* filename= */"vendor.bundle.js")
+  //]
 };

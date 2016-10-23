@@ -2,12 +2,27 @@
 <html>
   <head>
     <title>Espresso!</title>
-    <script src="/js/vendor.bundle.js"></script>
+
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/babel-polyfill/6.16.0/polyfill.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.16.4/lodash.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.0/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.11/c3.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.css" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.2.4/foundation.min.js"></script>
+    <!--script src="/js/vendor.bundle.js"></script-->
     <script src="/js/bundle.js"></script>
   </head>
   <body>
-    <h1>Espresso!</h1>
-    <p>Welcome to Expresso!!!</p>
-    <div id="content"><div>
+    <div class="row">
+      <h1>Espresso!</h1>
+      <p>Welcome to Expresso!!!</p>
+    </div>
+    <div class="row">
+      <div class="small-12 medium-6 large-6 columns" id="content"></div>
+      <div class="small-12 medium-6 large-6 columns" id="chart"></div>
+    </div>
   </body>
 </html>
