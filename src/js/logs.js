@@ -5,22 +5,47 @@ const _ = require('lodash');
 module.exports = class Logs {
   constructor(data) {
     // sort the data by time
+    data
+      .forEach(x => {
+        // copy metadata into the log object itself
+        x.log.meta = {};
+        x.log.meta.id = x.meta.id;
+        x.log.meta.map = x.meta.map;
+        x.log.meta.time = x.meta.time;
+
+        // delete unnecessary properties
+        delete x.meta.id;
+        delete x.meta.map;
+        delete x.meta.time;
+        delete x.log.chat;
+        delete x.log.killstreaks;
+        delete x.log.rounds;
+        delete x.log.teams;
+
+        // remove unnecessary level of abstraction
+        x = x.log;
+      })
     this.data = data.sort((a, b) => {
-      if (a.meta.time > b.meta.time) return 1;
-      else if (a.meta.time < b.meta.time) return -1;
-      else return 0;
-    });
+        if (a.meta.time > b.meta.time) return 1;
+        else if (a.meta.time < b.meta.time) return -1;
+        else return 0;
+      });
   }
 
+  //// currently get all maps played
+  //// if player steamId is passed in, should
+  //// get maps played for that player
+  //// if array of players is passed in,
+  //// should return an array that is a union of maps
+  //// player by each player
+  //// {map1, map2} ∪ {map2, map3} => {map1, map2, map3}
+  //// check: _.union
   getMapsPlayed() {
-    let maps = {};
-
-    this.data.forEach(log => {
-      if (maps[log.meta.map] === undefined) maps[log.meta.map] = 1;
-      else maps[log.meta.map]++;
-    });
-
-    return maps;
+    return this.data.reduce((prev, curr) => {
+      let map = curr.meta.map;
+      prev[map] ? prev[map]++ : prev[map] = 1;
+      return prev;
+    }, {});
   }
 
   getPlayersObj() {
@@ -101,7 +126,7 @@ module.exports = class Logs {
       obj.name = prev;
       obj.amount = amount;
       names.push(obj);
-      names.sort((a, b) => { 
+      names.sort((a, b) => {
         if (a.amount > b.amount) return -1;
         else if (a.amount < b.amount) return 1;
         else return 0;
@@ -140,7 +165,7 @@ module.exports = class Logs {
         _.each(obj.log.players, (val, key) => {
           if (key === steamId) {
             let newObj = {};
-            
+
             //// refactor to use _.extend instead of copying references
             newObj.meta = obj.meta;
             newObj.stats = val;
@@ -151,7 +176,7 @@ module.exports = class Logs {
             _.each(obj.log.healspread, (val, key) => {
               if (key === steamId) newObj.healspread = val;
             });
-            
+
             playerData.push(newObj);
           }
         });
@@ -181,7 +206,7 @@ module.exports = class Logs {
     if ( !steamIds ) {
       steamIds = _.map(this.getPlayersArr(), player => player.steamId);
     }
-    
+
     if ( _.isString(steamIds) ) {
       let player = {};
       let steamId = steamIds;
@@ -211,12 +236,12 @@ module.exports = class Logs {
       player.heal = [];
       player.cpc = [];
       player.ic = [];
-      
+
       player.ubertypes = {};
 
       this.data.forEach(data => {
         if (data.log.players[steamId]) {
-          
+
           _.each(data.log.players[steamId], (val, key) => {
             // assign object properties whose values are numbers
             if ( _.isNumber(val) ) {
@@ -242,7 +267,7 @@ module.exports = class Logs {
 
               _.each(classStats, (obj) => {
 
-                // if there isn't an object in player.class_stats array 
+                // if there isn't an object in player.class_stats array
                 // whose type is the same as currently selected object's
                 // type in classStats array, e.g. is there an object of type
                 // "demoman" or "scout", etc. in player.class_stats array
@@ -284,7 +309,7 @@ module.exports = class Logs {
       })
     }
     else if ( _.isArray(steamIds) ) {
-      
+
     }
     else throw 'Incorrect value passed into Logs.generatePlayerData(steamIds)';
   }*/

@@ -21,7 +21,7 @@ window.onload = () => {
 
   // generate a table containing the players found in the logs
   // sorted by the amount of times they have appeared in them
-  $('#content').append('<h3>Players found in the log:</h3>');
+  $('#content').append('<h3>Players found in the logs:</h3>');
   logs.getPlayersArr().forEach(player => {
     let otherNames = (function (player) {
       let otherNames = '';
@@ -41,6 +41,8 @@ window.onload = () => {
     );
   });
 
+  //$('td :checkbox').dragCheck();
+
   // generate a chart with the selected players
   $('#generate').click(() => {
 
@@ -50,16 +52,61 @@ window.onload = () => {
 
     // log out selected player data
     if (steamIds.length === 1 ) steamIds = steamIds[0];
-    console.log(logs.collectPlayerData(steamIds));
+    let playerLogs = logs.collectPlayerData(steamIds);
+
+    console.log(playerLogs);
+
+    if ( _.isObject(playerLogs) ) {
+
+      let dpmArr = playerLogs.data.map(v => v.stats.dapm);
+      dpmArr.unshift(playerLogs.steamId);
+
+      const chart = c3.generate({
+        bindto: '#chart',
+        data: {
+          type: 'bar',
+          columns: [dpmArr]
+        },
+        axis: {
+          x: {
+            label: 'Date',
+            position: 'outer-middle'
+          },
+          y: {
+            label: 'Damage per minute',
+            position: 'outer-middle'
+          }
+        }
+      });
+    }
+    else if ( _.isArray(playerLogs) ) {
+      _.each(playerLogs, playerLog => {
+        _.each(playerLog.data, val => dpmArr.push(val.stats.dapm))
+      });
+
+      const chart = c3.generate({
+        bindto: '#chart',
+        type: 'bar',
+        data: {
+          columns: [dpmArr]
+        },
+        axis: {
+          x: {
+            label: 'Date',
+            position: 'outer-middle'
+          },
+          y: {
+            label: 'Damage per minute',
+            position: 'outer-middle'
+          }
+        }
+      });
+    }
+
+
+
+    //console.log(dpmArr);
   });
 
-  const chart = c3.generate({
-    bindto: '#chart',
-    data: {
-      columns: [
-        ['data1', 100, 200, 150, 300, 200],
-        ['data2', 400, 500, 250, 700, 300]
-      ]
-    }
-  });
+
 }
