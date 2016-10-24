@@ -168,8 +168,8 @@ function logs(callback) {
               // concatenate 3 zeroes to unix timestamp,
               // because logs.tf omits them
               promiseArr[0].time += '000';
-
-              resolve({ meta: promiseArr[0], log: promiseArr[1] });
+              promiseArr[1].meta = promiseArr[0];
+              resolve(promiseArr[1]);
             });
 
         }
@@ -189,3 +189,12 @@ function logs(callback) {
 }
 
 module.exports = logs;
+
+//// new control flow
+Promise
+  .all(jsonPromiseArr.concat(htmlPromiseArr))
+  .then(x => {
+    // merging the data
+    // callback()
+  })
+  .cathc(x=> //callback)
